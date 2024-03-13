@@ -6,3 +6,4 @@ helmCharts:
     includeCRDs: true
     valuesFile: values.yaml
     version: 4.10.0
+    releaseName: west
