@@ -7,3 +7,11 @@ helmCharts:
     valuesFile: values.yaml
     version: 15.14.0
     releaseName: east
+
+patches:
+- target:
+    kind: Service
+  patch: |-
+    - op: replace
+      path: /spec/type
+      value: ClusterIP
