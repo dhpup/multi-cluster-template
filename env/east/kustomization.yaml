@@ -5,7 +5,7 @@ helmCharts:
     repo: oci://registry-1.docker.io/bitnamicharts
     includeCRDs: true
     valuesFile: values.yaml
-    version: 15.14.0
+    version: 15.12.2
     releaseName: east
 patches:
   - target:
