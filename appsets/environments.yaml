@@ -33,25 +33,25 @@ spec:
            prune: true
          syncOptions:
          - CreateNamespace=true
-# ---
-# apiVersion: argoproj.io/v1alpha1
-# kind: AppProject
-# metadata:
-#   name: addons
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-# spec:
-#   sourceRepos:
-#   - '*'
-#   destinations:
-#   - namespace: '*'
-#     server: '*'
-#   clusterResourceWhitelist:
-#   - group: '*'
-#     kind: '*'
-#     namespaceResourceWhitelist:
-#   - group: '*'
-#     kind: '*'
-#   orphanedResources:
-#     warn: false
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: addons
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+    namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  orphanedResources:
+    warn: false
