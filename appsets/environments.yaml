@@ -1,39 +1,39 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: ApplicationSet
-# metadata:
-#   name: environments
-# spec:
-#   generators:
-#   - clusters:
-#       selector:
-#         matchLabels:
-#           west: 'true'
-#       values:
-#         path: west
-#   - clusters:
-#       selector:
-#         matchLabels:
-#           east: 'true'
-#       values:
-#         path: east
-#   template:
-#     metadata:
-#       name: 'nginx-{{values.path}}-{{name}}'
-#     spec:
-#       project: addons
-#       source:
-#         repoURL: https://github.com/dhpup/multi-cluster-template.git
-#         targetRevision: HEAD
-#         path: 'env/{{values.path}}'
-#       destination:
-#         server: '{{server}}'
-#         namespace: 'nginx-{{values.path}}'
-#        syncPolicy:
-#          automated:
-#            prune: true
-#          syncOptions:
-#          - CreateNamespace=true
-# ---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: environments
+spec:
+  generators:
+  - clusters:
+      selector:
+        matchLabels:
+          west: 'true'
+      values:
+        path: west
+  - clusters:
+      selector:
+        matchLabels:
+          east: 'true'
+      values:
+        path: east
+  template:
+    metadata:
+      name: 'nginx-{{values.path}}-{{name}}'
+    spec:
+      project: addons
+      source:
+        repoURL: https://github.com/dhpup/multi-cluster-template.git
+        targetRevision: HEAD
+        path: 'env/{{values.path}}'
+      destination:
+        server: '{{server}}'
+        namespace: 'nginx-{{values.path}}'
+      syncPolicy:
+        automated:
+          prune: true
+        syncOptions:
+        - CreateNamespace=true
+---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
