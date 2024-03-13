@@ -15,5 +15,5 @@ patches:
     - op: replace
       path: /spec/type
       value: ClusterIP
-    - op: delete
+    - op: remove
       path: /spec/externalTrafficPolicy
