@@ -7,13 +7,12 @@ helmCharts:
     valuesFile: values.yaml
     version: 15.14.0
     releaseName: west
-
 patches:
-- target:
-    kind: Service
-  patch: |-
-    - op: replace
-      path: /spec/type
-      value: ClusterIP
-    - op: remove
-      path: /spec/externalTrafficPolicy
+  - target:
+      kind: Service
+    patch: |-
+      - op: replace
+        path: /spec/type
+        value: ClusterIP
+      - op: remove
+        path: /spec/externalTrafficPolicy
