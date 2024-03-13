@@ -22,13 +22,13 @@ jobs:
       -
         name: yq
         run: |
-          cd env/dev
-          yq -i '(.helmCharts[] | select(.name == "kubernetes-dashboard").version) = env(GITHUB_REF_NAME)' kustomization.yaml
+          cd env/east
+          yq -i '(.helmCharts[] | select(.name == "ingress-nginx").version) = env(GITHUB_REF_NAME)' kustomization.yaml
           git config --global user.name "Commit Bot"
           git config --global user.email "no-reply@akuity.io"
           git add .
           git status
-          git commit -m "Set kubernetes-dashboard helm version to ${GITHUB_REF_NAME}"
+          git commit -m "Set ingress-nginx helm version to ${GITHUB_REF_NAME}"
           git status
           git push
       - 
@@ -41,27 +41,10 @@ jobs:
       -
         name: yq
         run: |
-          cd env/stage
-          yq -i '(.helmCharts[] | select(.name == "kubernetes-dashboard").version) = env(GITHUB_REF_NAME)' kustomization.yaml
+          cd env/west
+          yq -i '(.helmCharts[] | select(.name == "ingress-nginx").version) = env(GITHUB_REF_NAME)' kustomization.yaml
           git config --global user.name "Commit Bot"
           git config --global user.email "no-reply@akuity.io"
           git add .
-          git commit -m "Set kubernetes-dashboard helm version to ${GITHUB_REF_NAME}"
-          git push
-      - 
-        name: Sleep for 10 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '10s'
-      - 
-        uses: mikefarah/yq@master 
-      -
-        name: yq
-        run: |
-          cd env/prod
-          yq -i '(.helmCharts[] | select(.name == "kubernetes-dashboard").version) = env(GITHUB_REF_NAME)' kustomization.yaml
-          git config --global user.name "Commit Bot"
-          git config --global user.email "no-reply@akuity.io"
-          git add .
-          git commit -m "Set kubernetes-dashboard helm version to ${GITHUB_REF_NAME}"
+          git commit -m "Set ingress-nginx helm version to ${GITHUB_REF_NAME}"
           git push

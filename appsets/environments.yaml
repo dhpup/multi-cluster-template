@@ -7,35 +7,51 @@ spec:
   - clusters:
       selector:
         matchLabels:
-          dev: 'true'
+          west: 'true'
       values:
-        path: dev
+        path: west
   - clusters:
       selector:
         matchLabels:
-          stage: 'true'
+          east: 'true'
       values:
-        path: stage
-  - clusters:
-      selector:
-        matchLabels:
-          prod: 'true'
-      values:
-        path: prod
+        path: east
   template:
     metadata:
-      name: 'kd-{{values.path}}-{{name}}'
+      name: 'nginx-{{values.path}}-{{name}}'
     spec:
-      project: demo
+      project: addons
       source:
-        repoURL: https://github.com/dhpup/helm-demo-v2.git
+        repoURL: https://github.com/dhpup/multi-cluster-template.git
         targetRevision: HEAD
         path: 'env/{{values.path}}'
       destination:
         server: '{{server}}'
-        namespace: 'kd-{{values.path}}'
-      # syncPolicy:
-      #   automated:
-          # prune: true
-        # syncOptions:
-        # - CreateNamespace=true
+        namespace: 'nginx-{{values.path}}'
+       syncPolicy:
+         automated:
+           prune: true
+         syncOptions:
+         - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: addons
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+    namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  orphanedResources:
+    warn: false

@@ -1,7 +1,0 @@
-$patch: merge
-apiVersion: argoproj.io/v1beta1
-kind: Deployment
-metadata:
-  name: prod-metrics-server
-  annotations:
-    argocd.argoproj.io/sync-wave: "1"
